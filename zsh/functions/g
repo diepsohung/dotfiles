@@ -1,9 +1,45 @@
-# No arguments: `git status`
-# With arguments: acts like `git`
-g() {
-  if [[ $# -gt 0 ]]; then
-    git "$@"
-  else
-    git status
-  fi
+gacom() {
+  git add .;
+  git commit -m $1;
 }
+
+gcom() {
+  git commit -m $1;
+}
+
+
+gpull() {
+  branch_name=$(git symbolic-ref --short -q HEAD);
+  git pull origin $branch_name;
+}
+
+gfp!() {
+  branch_name=$(git symbolic-ref --short -q HEAD);
+  git push origin $branch_name -f;
+}
+
+gcob() {
+  git ck master;
+  git pull origin master;
+  git ck -b $1;
+}
+
+gpr() {
+  branch_name=$(git symbolic-ref --short -q HEAD);
+  git push origin $branch_name;
+}
+
+gppr() {
+  branch_name=$(git symbolic-ref --short -q HEAD);
+  git push origin $branch_name;
+
+  remote_url=$(git config --get remote.origin.url);
+
+  # ${string//substring/replacement}
+  repo_url=(${=remote_url//.git/ });
+
+  pr_url="${repo_url}/compare/master...$branch_name";
+  echo "Opening ${pr_url} ....";
+  open -a "Google Chrome" $pr_url;
+}
+
