@@ -1,3 +1,7 @@
+export ZSH=$HOME/.oh-my-zsh
+export ZSH_THEME="robbyrussell"
+source $ZSH/oh-my-zsh.sh
+plugins=(git bundler rake rbenv ruby)
 # load custom executable functions
 for function in ~/.zsh/functions/*; do
   source $function
@@ -33,9 +37,6 @@ _load_settings() {
   fi
 }
 _load_settings "$HOME/.zsh/configs"
-
-# Local config
-[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
 # aliases
 [[ -f ~/.aliases ]] && source ~/.aliases

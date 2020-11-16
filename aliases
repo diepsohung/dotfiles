@@ -2,21 +2,22 @@
 alias ll="ls -al"
 alias ln="ln -v"
 alias mkdir="mkdir -p"
-alias e="$EDITOR"
-alias v="$VISUAL"
+alias cc="clear"
 
+alias ws=~/Desktop/workspace/
+alias lx=~/Desktop/workspace/lixibox
+alias sidekiq="bundle exec sidekiq"
+alias be="bundle exec"
+alias s="source ~/.zshrc"
+alias m="rails db:migrate"
+alias df="cd ~/dotfiles"
+alias v="vim"
+alias mux="tmuxinator"
 # Bundler
 alias b="bundle"
 
 # Rails
 alias migrate="rake db:migrate db:rollback && rake db:migrate db:test:prepare"
-alias s="rspec"
 
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
-
-# Include custom aliases
-if [[ -f ~/.aliases.local ]]; then
-  source ~/.aliases.local
-fi
-

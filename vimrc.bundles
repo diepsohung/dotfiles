@@ -8,14 +8,14 @@ function! s:UnPlug(plug_name)
     call remove(g:plugs, a:plug_name)
   endif
 endfunction
-command!  -nargs=1 UnPlug call s:UnPlug(<args>)
+command! -nargs=1 UnPlug call s:UnPlug(<args>)
 
 let g:has_async = v:version >= 800 || has('nvim')
 
 call plug#begin('~/.vim/bundle')
 
 " Define bundles via Github repos
-Plug 'christoomey/vim-run-interactive'
+" Plug 'christoomey/vim-run-interactive'
 
 " If fzf has already been installed via Homebrew, use the existing fzf
 " Otherwise, install fzf. The `--all` flag makes fzf accessible outside of vim
@@ -24,7 +24,7 @@ if isdirectory("/usr/local/opt/fzf")
 else
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 endif
-
+Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf.vim'
 " Plug 'elixir-lang/vim-elixir'
 " Plug 'fatih/vim-go'
@@ -36,8 +36,9 @@ Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-projectionist'
+" Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-rails'
+Plug 'thoughtbot/vim-rspec'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rhubarb'
@@ -60,8 +61,9 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/gv.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'ThanhKhoaIT/git-message.vim'
 if g:has_async
-  Plug 'dense-analysis/ale'
+ " Plug 'dense-analysis/ale'
 endif
 
 if filereadable(expand("~/.vimrc.bundles.local"))

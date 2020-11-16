@@ -6,6 +6,9 @@
 [color]
   ui = auto
 [alias]
+  gd="git diff @~..@"
+  grs="git reset --soft HEAD~1"
+  gurs="git reset 'HEAD@{1}'"
   aa = add --all
   ap = add --patch
   branches = for-each-ref --sort=-committerdate --format=\"%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
@@ -13,7 +16,7 @@
   co = checkout
   pf = push --force-with-lease
   st = status
-	tree = log --graph --decorate --pretty=oneline --abbrev-commit
+  tree = log --graph --decorate --pretty=oneline --abbrev-commit
 [core]
   excludesfile = ~/.gitignore
   autocrlf = input
