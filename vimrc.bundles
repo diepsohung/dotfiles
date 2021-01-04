@@ -24,6 +24,7 @@ if isdirectory("/usr/local/opt/fzf")
 else
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 endif
+Plug 'xmisao/rubyjump.vim'
 Plug 'honza/vim-snippets'
 Plug 'junegunn/fzf.vim'
 " Plug 'elixir-lang/vim-elixir'

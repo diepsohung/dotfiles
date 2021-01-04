@@ -4,7 +4,8 @@ set scrolloff=10
 set clipboard=unnamed
 set number
 set numberwidth=5
-
+set foldmethod=indent
+set foldlevelstart=20
 set tabstop=2 " Softtabs, 2 spaces
 set shiftwidth=2
 set shiftround
@@ -51,8 +52,16 @@ set nocompatible " We're running Vim, not Vi!
 nnoremap <SPACE> <Nop>
 " END SET ==================================================
 
+
+" COMMAND ==================================================
+command ForceKillRails !kill -9 $(cat tmp/pids/server.pid)
+" ENDCOMMAND
 " LET ==================================================
 let mapleader=" "
+let g:airline_section_b = '%f'
+let g:airline_section_c = ''
+let g:airline_section_x = '%{FugitiveStatusline()}'
+let g:airline_section_y = ''
 let g:tmux_navigator_no_mappings = 1
 let g:better_whitpace_enabled=1
 
@@ -84,10 +93,17 @@ let g:move_key_modifier = 'C'
 
 let g:rails_migrate_command = "Dispatch bundle exec rake"
 let g:rspec_command = "Dispatch bundle exec bin/rspec {spec}"
-
+let g:multi_cursor_use_default_mapping = 0
+let g:multi_cursor_start_word_key      = 'g<C-n>'
+let g:multi_cursor_select_all_word_key = 'g<C-a>'
 " END LET ==================================================
 
 " MAPPINGS ==================================================
+
+"GIT
+nmap <Leader>gs :Gst<CR>
+
+nmap F za
 nmap <Leader>dp :Dispatch<SPACE>
 nmap <Leader>f :Rg<SPACE>
 nmap fa :RGrails <C-R><C-W><CR>
@@ -106,6 +122,7 @@ nmap <Leader>fs :RGstyle<SPACE>
 nmap <Leader>fj :RGjs<SPACE>
 nmap <Leader>fr :RGruby<SPACE>
 nmap <Leader>fb :RGblueprint<SPACE>
+nmap <Leader>- :RubyJump<CR>
 
 " Change inside quotes
 nmap c" ci"
@@ -183,9 +200,18 @@ nmap zz <C-w>=
 " Rails
 nmap <Leader>c :Vcontroller<SPACE>
 nmap <Leader>m :Vmodel<SPACE>
-nmap <Leader>vv :Vview<SPACE>
+nmap <Leader>v :Vview<SPACE>
 nmap <Leader>vq :Vquery<SPACE>
 nmap <Leader>p :Vpolicy<SPACE>
+nmap <Leader>b :Vblueprint<SPACE>
+
+nmap <Leader>ec :Econtroller<SPACE>
+nmap <Leader>em :Emodel<SPACE>
+nmap <Leader>ev :Eview<SPACE>
+nmap <Leader>eq :Equery<SPACE>
+nmap <Leader>ep :Epolicy<SPACE>
+nmap <Leader>eb :Eblueprint<SPACE>
+
 nmap <Leader>d <ESC>obyebug<ESC>
 
 nmap + :vertical resize +20<cr>
@@ -299,6 +325,17 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+" Rename current file
+function! RenameFile()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'), 'file')
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
+endfunction
+map <Leader>rnf :call RenameFile()<cr>
 " let g:airline#extensions#tabline#enabled = 1
 " let g:airline#extensions#tabline#left_sep = ' '
 " let g:airline#extensions#tabline#left_alt_sep = '|'
